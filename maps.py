@@ -2,14 +2,21 @@ import pandas as pd
 import folium
 from folium.plugins import FastMarkerCluster, MeasureControl, DualMap, MarkerCluster
 
-m_zero = pd.read_csv('QueryResultss.csv')
-#m_zero.fillna(0, inplace =True)
-o = folium.Map(location=[3, 102], zoom_start=2)
-mc = MarkerCluster()
+fave_df = pd.read_csv('/Users/jatin/Documents/Fave/Datascience/sunflower/my_fb_outlets.csv')
+place_df = pd.read_csv('/Users/jatin/Documents/Fave/Datascience/sunflower/fb_google.csv')
 
-for row in m_zero.itertuples():
-    #folium.Marker([m_zero.iloc[i]['longitude'], m_zero.iloc[i]['latitude']], popup = m_zero.iloc[i]['company_name']).add_to(o)
-    #o.add_child(FastMarkerCluster(m_zero[['latitude', 'longitude']].values.tolist(),overlay=False))
-    mc.add_child(folium.Marker(location=[row.latitude,  row.longitude], popup=row.company_name))
-o.add_child(mc)
+
+#m_zero.fillna(0, inplace =True)
+o = folium.plugins.DualMap(location=(3, 102),layout='horizontal', zoom_start=8)
+fm = MarkerCluster()
+gm = MarkerCluster()
+
+for row in fave_df.itertuples():
+    fm.add_child(folium.Marker(location=[row.latitude,  row.longitude], popup=row.company_name))
+
+for row in place_df.itertuples():
+    gm.add_child(folium.Marker(location=[row.lat,  row.lng], popup=row.place_id))
+
+fm.add_to(o.m1)
+gm.add_to(o.m2)
 o.save('index.html')
