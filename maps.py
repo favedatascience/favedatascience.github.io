@@ -16,11 +16,11 @@ for row in m_zero.itertuples():
     #o.add_child(FastMarkerCluster(m_zero[['latitude', 'longitude']].values.tolist(),overlay=False))
     try:
 
-        # mc.add_child(folium.Marker(location=[row.address_latitude,  row.address_longitude], popup=row.company_name))
-        mc.add_child(folium.Marker(location=[row.latitude,  row.longitude], popup=row.company_name))
+        mc.add_child(folium.Marker(location=[row.address_latitude,  row.address_longitude], popup=row.company_name))
+        # mc.add_child(folium.Marker(location=[row.latitude,  row.longitude], popup=row.company_name))
 
     except Exception as e:
-        print(row.latitude,  row.longitude)
+        print(row.address_latitude,  row.address_longitude)
         print(e,'\n')
 o.add_child(mc)
 o.save('index.html')
