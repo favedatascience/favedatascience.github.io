@@ -2,7 +2,7 @@ import pandas as pd
 import folium
 from folium.plugins import FastMarkerCluster, MeasureControl, DualMap, MarkerCluster
 
-m_zero = pd.read_csv('QueryResultsold.csv')
+m_zero = pd.read_csv('Query Results.csv')
 #m_zero.fillna(0, inplace =True)
 m_zero.dropna(inplace =True)
 o = folium.Map(location=[3, 102], zoom_start=2)
